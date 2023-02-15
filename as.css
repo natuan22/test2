@@ -1,0 +1,56 @@
+/* .up-arrow {
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    background: transparent;
+    border-bottom: solid 7px black;
+    border-top-width: 0;
+    cursor: pointer;
+} */
+
+.down-arrow {
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    background: transparent;
+    border-top: solid 7px rgb(241, 148, 13);
+    border-bottom-width: 0;
+    margin: 3px 0 0 1px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#chartSell {
+    float: left;
+    width: 50%;
+}
+
+#chartBuy {
+    float: right;
+    width: 50%;
+}
+
+#chartSell2 {
+    float: left;
+    width: 50%;
+}
+
+#chartBuy2 {
+    float: right;
+    width: 50%;
+}
+
+#chartBanRong {
+    float: right;
+    width: 50%;
+}
+
+#chartMuaRong {
+    float: left;
+    width: 50%;
+}
+
+#sukien table th {
+    color: rgb(241, 148, 13)
+}
+

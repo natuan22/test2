@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="as.css">
+    <script type="text/javascript" src="test.js"></script>
+
+    <!--apexcharts-->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <!--fontawesome-->
+    <script src="https://kit.fontawesome.com/0a9e6faee2.js" crossorigin="anonymous"></script>
+
+    <!--lodash-->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+
+    <!--boostrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="card" style="margin-top: 20px; background-color: white;">
+            <div class="card-header">
+                Tin tức sự kiện
+            </div>
+            <div class="card-body" style=" height:300px; overflow:auto;" id="sukien">
+                <table class="table">
+                    <div class="spinner-border text-success" id="mySpinner"></div>
+                    <tr>
+                        <th>Mã chứng khoán</th>
+                        <th>Loại sự kiện</th>
+                        <th>Ngày
+                            <div class="down-arrow" onclick="sortByDateDescending()">
+                            </div>
+                        </th>
+                        <th>Nội dung sự kiện</th>
+                    </tr>
+                    <tbody id="myLichSuKien">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <br><br><br>
+
+        <select id="ddlViewBy" onchange="onChangeData()">
+            <option value="HSX" selected="selected">HSX</option>
+            <option value="HNX">HNX</option>
+            <option value="UPCOM">UPCOM</option>
+        </select>
+
+        <br><br><br>
+
+        <div id="chartSell"></div>
+        <div id="chartBuy"></div>
+
+        <div id="chartSell2"></div>
+        <div id="chartBuy2"></div>
+
+        <br><br><br>
+
+        <div id="chartMuaRong"></div>
+        <div id="chartBanRong"></div>
+    </div>
+</body>
+
+<script>
+    window.onload = function () {
+        getLichSuKien();
+        getData('hsx');
+    }
+
+    var optionsBanRong = {
+        series: [
+            {
+                name: 'Desktops',
+                data: [
+                    {
+                        x: 'ABC',
+                        y: 10
+                    },
+                    {
+                        x: 'DEF',
+                        y: 60
+                    },
+                    {
+                        x: 'XYZ',
+                        y: 41
+                    }
+                ]
+            },
+            {
+                name: 'Mobile',
+                data: [
+                    {
+                        x: 'ABCD',
+                        y: 10
+                    },
+                    {
+                        x: 'DEFG',
+                        y: 20
+                    },
+                    {
+                        x: 'WXYZ',
+                        y: 51
+                    },
+                    {
+                        x: 'PQR',
+                        y: 30
+                    },
+                    {
+                        x: 'MNO',
+                        y: 20
+                    },
+                    {
+                        x: 'CDE',
+                        y: 30
+                    }
+                ]
+            }
+        ],
+        legend: {
+            show: false
+        },
+        chart: {
+            toolbar: {
+                show: false
+            },
+            type: 'treemap',
+            fontFamily: 'system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"',
+        },
+        title: {
+            text: 'KHỐI NGOẠI BÁN RÒNG',
+            align: 'center',
+        },
+    };
+
+    var chartBanRong = new ApexCharts(document.querySelector("#chartBanRong"), optionsBanRong);
+    chartBanRong.render();
+
+    var optionsMuaRong = {
+        series: [
+            {
+                name: 'Desktops',
+                data: [
+                    {
+                        x: 'ABC',
+                        y: 10
+                    },
+                    {
+                        x: 'DEF',
+                        y: 60
+                    },
+                    {
+                        x: 'XYZ',
+                        y: 41
+                    }
+                ]
+            },
+            {
+                name: 'Mobile',
+                data: [
+                    {
+                        x: 'ABCD',
+                        y: 10
+                    },
+                    {
+                        x: 'DEFG',
+                        y: 20
+                    },
+                    {
+                        x: 'WXYZ',
+                        y: 51
+                    },
+                    {
+                        x: 'PQR',
+                        y: 30
+                    },
+                    {
+                        x: 'MNO',
+                        y: 20
+                    },
+                    {
+                        x: 'CDE',
+                        y: 30
+                    }
+                ]
+            }
+        ],
+        legend: {
+            show: false
+        },
+        chart: {
+            toolbar: {
+                show: false
+            },
+            type: 'treemap',
+            fontFamily: 'system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"',
+        },
+        title: {
+            text: 'KHỐI NGOẠI MUA RÒNG',
+            align: 'center',
+        },
+    };
+
+    var chartMuaRong = new ApexCharts(document.querySelector("#chartMuaRong"), optionsMuaRong);
+    chartMuaRong.render();
+</script>
+
+</html>
